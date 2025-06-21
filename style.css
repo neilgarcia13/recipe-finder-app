@@ -1,0 +1,261 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'LXGW Marker Gothic';
+  text-decoration: none;
+}
+
+body {
+  line-height: 1.7;
+  background-color: #f7fcfe;
+  padding: 30px 15px;
+  
+}
+
+.recipe-finder-container {
+  max-width: 1200px;
+  text-align: center;
+  margin-inline: auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-inline: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.search-bar {
+  padding: 14px 20px;
+  font-size: 1rem;
+  flex-grow: 1;
+  border: 1px solid #e9ecef;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #0377b6;
+}
+
+.search-button {
+  padding: 15px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background-color: #4caf50;
+  color: #f7fcfe;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.random-button-container {
+  margin-bottom: 30px;
+}
+
+.random-button {
+  padding: 15px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background-color: #ff9800;
+  color: #f7fcfe;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.random-button:hover {
+  background-color: #f57c00;
+  transform: translateY(-2px);
+}
+
+.results-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  column-gap: 25px;
+}
+
+.recipe-item {
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: left;
+  width: 100%;
+  
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  transition: all 0.25s ease-in-out;
+
+}
+
+.recipe-item:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  transform: translateY(-5px);
+}
+
+.recipe-img {
+  width: 100%;
+  height: 220px;
+  border-radius: 8px;
+}
+
+.recipe-name {
+  margin: 0;
+  padding: 15px;
+  font-weight: 600; 
+}
+
+.modal-container {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 1;
+  visibility: visible;
+  backdrop-filter: blur(3px);
+  padding: 20px;
+
+}
+
+.modal-container.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.modal-content {
+  background-color: #fff;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border-radius: 8px;
+  padding: 35px 40px;
+
+  position: relative;
+
+}
+
+.close-button {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background-color: #fff;
+  border: 1px solid #e9ecef;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+  font-size: 1.5rem;
+  font-weight: 700;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+
+  transition: all 0.2s ease;
+  transform: rotate(180deg);
+
+}
+
+.close-button:hover {
+  transform: rotate(360deg);
+  background-color: rgb(200, 200, 200);
+}
+
+.recipe-title {
+  margin: 10px 0px;
+  font-size: 1.8rem;
+  font-weight: 700;
+
+  color: #0377b6;
+}
+
+.modal-content h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  margin-top: 10px;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0377b6;
+
+}
+
+.modal-content a {
+  color: #0377b6;
+  font-size: 1.2rem;
+  font-weight: 600;
+
+  margin-top: 10px;
+  margin-bottom: 25px;
+  
+}
+
+.modal-content a:hover {
+  text-decoration: underline;
+  
+}
+
+.modal-img {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.modal-content ul {
+  list-style: none;
+  padding-left: 0px;
+}
+
+.modal-content ul li {
+  padding: 10px 0px;
+  border-bottom: 1px dashed #e9ecef;
+  font-size: 0.95rem;
+}
+
+.modal-content ul li:last-child {
+  border-bottom: none;
+}
+
+.modal-content p {
+  line-height: 1.8;
+  font-size: 1rem;
+  margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+
+
+
