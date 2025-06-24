@@ -1,13 +1,20 @@
 const SEARCH_API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
+const RANDOM_API_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
+const LOOKUP_API_URL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=52772";
 
 
 const searchForm = document.querySelector('.search-form');
 const searchBar = document.querySelector('.search-bar');
 const searchButton = document.querySelector('.search-button');
 
+const randomButton = document.querySelector('.random-button');
+
 const messageArea = document.querySelector('.message-area');
 
 const resultsGrid = document.querySelector('.results-grid');
+
+const modalContainer = document.querySelector('.modal-container');
+const closeButton = document.querySelector('.close-button');
 
 searchForm.addEventListener("submit", e => {
   e.preventDefault();
@@ -25,6 +32,13 @@ searchForm.addEventListener("submit", e => {
 
 });
 
+randomButton.addEventListener("click", () => {
+
+  getRandomRecipe();
+
+});
+
+
 async function searchRecipe(query) {
 
   showMessage(`Searching for "${query}"...`, false, true);
@@ -37,13 +51,15 @@ async function searchRecipe(query) {
     const data = await response.json();
     clearMessage();
 
+    console.log(data)
+
     if (data.meals) {
       displayRecipe(data.meals);
 
     } else {
 
       showMessage(`No recipe/s found for "${query}".`, true);
-      
+
     }
 
   } catch (error) {
@@ -75,6 +91,79 @@ function displayRecipe(recipes) {
 
 }
 
+function displayRecipeModal(recipes) {
+
+  let recipesModalHTML = '';
+
+  recipes.forEach((recipeModal) => {
+
+    recipesModalHTML += `
+      <div class="modal-content">
+
+        <button class="close-button">×</button>
+
+        <h2 class="recipe-title">${recipeModal.strMeal}</h2>
+
+        <img class="modal-img" src=${recipeModal.strMealThumb}>
+
+        <h3>Category: ${recipeModal.strCategory}</h3>
+        <h3>Area: ${recipeModal.strArea}</h3>
+        <h3>Ingredients</h3>
+
+        <ul>
+
+          <li>1/2 bag Rice Stick Noodles</li>
+          <li>8 oz Prawns</li>
+
+        </ul>
+
+        <h3>Instructions</h3>
+
+        <p>${recipeModal.strInstructions}</p>
+
+        <h3>Video Recipe</h3>
+
+        <div class="youtube-link-container">
+          <a href=${recipeModal.strYoutube} target="_blank">Watch on Youtube</a>
+        </div>
+
+        <div class="source-link-container">
+         <a href="https://sueandgambo.com/pages/shrimp-chow-fun">View Original Source</a>
+        </div>
+
+      </div>
+    `
+  });
+
+  modalContainer.innerHTML = recipesModalHTML;
+
+}
+
+async function getRandomRecipe() {
+
+  showMessage("Loading random recipe...", false, true);
+
+  try {
+    const response = await fetch(RANDOM_API_URL);
+    if(!response.ok) throw new Error("Something went wrong.");
+
+    const data = await response.json();
+    clearMessage();
+
+    if (data.meals && data.meals.length > 0) {
+
+      displayRecipe(data.meals);
+
+    } else {
+      showMessage("Loading random recipe failed. Please try again.", true)
+    }
+
+  } catch (error) {
+    showMessage("Error loading random recipe. Please try again.", true);
+  }
+
+}
+
 function showMessage(message, isError = false, isLoading = false) {
   
   messageArea.textContent = message;
@@ -87,13 +176,43 @@ function showMessage(message, isError = false, isLoading = false) {
 function clearMessage() {
 
   messageArea.textContent = "";
-  messageArea.className = "";
+  messageArea.className = "message-area";
 
 }
 
+resultsGrid.addEventListener("click", (e) => {
 
-const closeButton = document.querySelector('.close-button');
+  const recipeCard = e.target.closest('.recipe-item');
+
+  if (recipeCard) {
+
+    showModal();
+
+  }
+})
+
+async function getRecipeDetails(id) {
+  showModal();
+}
+
+function showModal() {
+  modalContainer.classList.remove("hidden");
+  document.body.style.overflow = "hidden";
+}
+
+function closeModal() {
+  modalContainer.classList.add("hidden");
+  document.body.style.overflow = "";
+}
 
 closeButton.addEventListener("click", () => {
-  document.querySelector('.modal-container').classList.add('hidden');
+  closeModal();
+});
+
+modalContainer.addEventListener("click", (e) => {
+
+  if (e.target === modalContainer) {
+    closeModal();
+  }
+
 });
