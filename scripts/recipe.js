@@ -2,9 +2,11 @@ import { resultsGrid, modalContainer } from "./main.js";
 import { showMessage, clearMessage } from "./message.js";
 import { showModal, closeModal } from "./modal.js";
 
+//VARIABLE DECLARATION OF THE APIs
 const SEARCH_API_URL = "https://www.themealdb.com/api/json/v1/1/search.php?s=";
 const RANDOM_API_URL = "https://www.themealdb.com/api/json/v1/1/random.php";
 const LOOKUP_API_URL = "https://www.themealdb.com/api/json/v1/1/lookup.php?i=";
+
 
 const modalContent = document.querySelector('.modal-content');
 
@@ -13,7 +15,7 @@ export async function searchRecipe(query) {
   showMessage(`Searching for "${query}"...`, false, true);
 
   try {
-
+    //Data fetching in the API
     const response = await fetch(`${SEARCH_API_URL} ${query}`);
     if (!response.ok) throw new Error("Network error.");
 
@@ -43,7 +45,7 @@ export function displayRecipe(recipes) {
   }
 
   recipes.forEach((recipe) => {
-
+    //Generated the HTML using the DOM
     recipesHTML += `
       <div class="recipe-item" data-recipe-id="${recipe.idMeal}">
         <img class="recipe-img" src=${recipe.strMealThumb} alt="${recipe.strMeal}" loading="lazy">
@@ -61,6 +63,7 @@ export async function getRandomRecipe() {
   showMessage("Loading random recipe...", false, true);
 
   try {
+    //Data fetching in the API
     const response = await fetch(RANDOM_API_URL);
     if(!response.ok) throw new Error("Something went wrong.");
 
@@ -87,7 +90,7 @@ export async function getRecipeDetails(id) {
   showModal();
 
   try {
-
+    //Data fetching in the API
     const response = await fetch(`${LOOKUP_API_URL} ${id}`);
     if(!response.ok) throw new Error("Something went wrong.");
 
@@ -112,6 +115,7 @@ export function displayRecipeModal(recipes, recipesIngredient) {
 
   let recipesModalHTML = '';
 
+  //Displaying of the recipe's list of ingredients functionality
   const ingredients = [];
 
   for (let i = 1; i <= 20; i++) {
@@ -128,7 +132,7 @@ export function displayRecipeModal(recipes, recipesIngredient) {
   }
 
   recipes.forEach((recipe) => {
-
+    //Generated the HTML using the DOM
     recipesModalHTML += `
     
       <div class="modal-content">
@@ -169,7 +173,7 @@ export function displayRecipeModal(recipes, recipesIngredient) {
 
   modalContainer.innerHTML = recipesModalHTML;
 
-
+  //Modal's close button functionality
   document.querySelector('.close-button').addEventListener("click", () => {
     
     closeModal();
