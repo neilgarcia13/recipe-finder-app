@@ -1,0 +1,14 @@
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'LXGW Marker Gothic';
+  text-decoration: none;
+}
+
+body {
+  line-height: 1.7;
+  background-color: #f7fcfe;
+  padding: 30px 15px;
+  
+}

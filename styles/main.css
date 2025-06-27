@@ -1,0 +1,97 @@
+.recipe-finder-container {
+  max-width: 1200px;
+  text-align: center;
+  margin-inline: auto;
+}
+
+h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+  max-width: 600px;
+  margin-inline: auto;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  border-radius: 8px;
+}
+
+.search-bar {
+  padding: 14px 20px;
+  font-size: 1rem;
+  flex-grow: 1;
+  border: 1px solid #e9ecef;
+  border-radius: 8px 0 0 8px;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.search-bar:focus {
+  border-color: #0377b6;
+}
+
+.search-button {
+  padding: 15px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 2px;
+  background-color: #4caf50;
+  color: #f7fcfe;
+  border: none;
+  border-radius: 0 8px 8px 0;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #45a049;
+}
+
+.random-button-container {
+  margin-bottom: 30px;
+}
+
+.random-button {
+  padding: 15px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  background-color: #ff9800;
+  color: #f7fcfe;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.random-button:hover {
+  background-color: #f57c00;
+  transform: translateY(-2px);
+}
+
+.message-area.error {
+  color: #dc3545;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+}
+
+.message-area {
+  margin: 25px auto;
+  padding: 10px;
+  max-width: 600px;
+  font-size: 1rem;
+  border-radius: 8px;
+}
+
+.message-area.info, .message-area.loading {
+  color: #17a2b8;
+  background-color: #d1ecf1;
+  border: 1px solid #bee5eb;
+}
